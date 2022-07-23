@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 router.post('/', function(req, res, next) {
 // Actual implementation would check values in a database

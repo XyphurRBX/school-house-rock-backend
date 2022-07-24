@@ -3,7 +3,7 @@ const db = require('../services/db');
 const hash = require('../services/hash');
 const router = express.Router();
 
-const SIGNUP_ENABLED = (process.env.SIGNUP_ENABLED == 'true') || false;
+const SIGNUP_ENABLED = process.env.SIGNUP_ENABLED == 'false' ? false : true;
 
 router.post('/', async function(req, res) {
 

@@ -7,26 +7,26 @@ const connectionPool = new Pool({
 });
 
 
-async function getUserPassword(username) {
-	const returnedValue = await connectionPool.query('SELECT password FROM admin WHERE username=$1', [username], (err, res) => {
-		if (err) return null;
-
+async function getUserPassword(username) {	
+	try {
+		const res = await connectionPool.query('SELECT password FROM admin WHERE username=$1', [username]);
+		
 		if (res.rowCount != 1) return null;
 
 		return res.rows[0].password;
-	});
-
-	return returnedValue;
+	} catch (err) {
+		return null;
+	}
 }
 
 async function signupUser(username, password) {
-	const returnedValue = await connectionPool.query('INSERT INTO admin(username,password) VALUES ($1,$2)', [username, password], (err, res) => {
-		if (err) return false;
+	try {
+		const res = await connectionPool.query('INSERT INTO admin(username,password) VALUES ($1,$2)', [username, password]);
 
 		return true;
-	});
-
-	return returnedValue;
+	} catch (err) {
+		return false;
+	}
 }
 
 module.exports = { getUserPassword, signupUser };

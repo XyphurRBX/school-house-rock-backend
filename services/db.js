@@ -1,6 +1,8 @@
 const { Pool } = require('pg');
 
-const connectionPool = new Pool();
+const connectionPool = new Pool({
+	ssl: true
+});
 
 
 async function getUserPassword(username) {
@@ -17,6 +19,7 @@ async function getUserPassword(username) {
 
 async function signupUser(username, password) {
 	const returnedValue = await connectionPool.query('INSERT INTO admin(username,password) VALUES ($1,$2)', [username, password], (err, res) => {
+		console.log(err.message);
 		if (err) return false;
 
 		return true;

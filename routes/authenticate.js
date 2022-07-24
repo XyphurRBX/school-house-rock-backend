@@ -1,16 +1,20 @@
 const express = require('express');
+const db = require('../services/db');
+const hash = require('../services/hash')
 const router = express.Router();
 
-router.post('/', function(req, res, next) {
-// Actual implementation would check values in a database
-	if (req.body.username=='foo' && req.body.password=='bar') {
-		res.locals.username = req.body.username;
-		next();
-	} else {
-		res.sendStatus(401);
-	}
-}, (req, res) => {
+router.post('/', async function(req, res, next) {
+	const username = req.body.username;
+	if (username == null) return res.sendStatus(401);
+
+	const currentPassword = await db.getUserPassword(username);
+	if (currentPassword == null) return res.sendStatus(401);
+
+	const hashedPassword = hash(req.body.password);
+	if (hashedPassword != currentPassword) return res.sendStatus(401);
+
 	req.session.loggedIn = true;
-	req.session.username = res.locals.username;
-	res.sendStatus(200);
+	return res.sendStatus(200);
 });
+
+module.exports = router;

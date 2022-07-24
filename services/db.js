@@ -1,7 +1,9 @@
 const { Pool } = require('pg');
 
 const connectionPool = new Pool({
-	ssl: true
+	ssl: {
+		rejectUnauthorized: false,
+	},
 });
 
 

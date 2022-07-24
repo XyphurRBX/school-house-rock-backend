@@ -4,7 +4,7 @@ const connectionPool = new Pool();
 
 
 async function getUserPassword(username) {
-	const returnedValue = await connectionPool.query('SELECT password FROM user WHERE username=$1', [username], (err, res) => {
+	const returnedValue = await connectionPool.query('SELECT password FROM admin WHERE username=$1', [username], (err, res) => {
 		if (err) return null;
 
 		if (res.rowCount != 1) return null;
@@ -16,7 +16,7 @@ async function getUserPassword(username) {
 }
 
 async function signupUser(username, password) {
-	const returnedValue = await connectionPool.query('INSERT INTO user(username,password) VALUES ($1,$2)', [username, password], (err, res) => {
+	const returnedValue = await connectionPool.query('INSERT INTO admin(username,password) VALUES ($1,$2)', [username, password], (err, res) => {
 		if (err) return false;
 
 		return true;

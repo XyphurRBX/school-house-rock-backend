@@ -5,6 +5,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session')
 const logger = require('morgan');
+const cors = require('cors');
 
 const authenticateRouter = require('./routes/authenticate');
 const logoutRouter = require('./routes/logout');
@@ -19,6 +20,7 @@ const MINUTES_IN_HOUR = 60;
 const HOURS_IN_DAY = 24;
 const MILLISECONDS_IN_DAY = MILLISECONDS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY;
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

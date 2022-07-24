@@ -11,11 +11,11 @@ router.post('/', async function(req, res) {
 
 	const username = req.body.username;
 	const password = req.body.password;
-	if (username == null || password == null) return res.sendStatus(400);
+	if (username == null || password == null) return res.status(400).send("Missing parameters");
 
 	const hashedPassword = hash(password);
 	const success = await db.signupUser(username, hashedPassword);
-	if (!success) return res.sendStatus(400);
+	if (!success) return res.status(400).send("Sign up errored");
 
 	return res.sendStatus(200);
 });

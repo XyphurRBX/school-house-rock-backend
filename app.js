@@ -26,14 +26,12 @@ app.use(bodyParser.json())
 app.use(cors({
 	origin: [
 		'http://localhost:5173',
-		'https://school-house-rock-frontend-b3up8.ondigitalocean.app/'
+		'https://school-house-rock-frontend-b3up8.ondigitalocean.app'
 	],
 	credentials: true,
 	exposedHeaders: ['set-cookie'],
 }));
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
 	secret: process.env.SESSION_SECRET || 'test_secret',

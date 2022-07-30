@@ -25,8 +25,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors({
 	origin: [
-		'http://localhost:5173',
-		'https://school-house-rock-frontend-b3up8.ondigitalocean.app'
+		'http://localhost:5173', // vite dev
+		'http://localhost:4173', // vite preview (static site)
+		'https://school-house-rock-frontend-b3up8.ondigitalocean.app' // production
 	],
 	credentials: true,
 	exposedHeaders: ['set-cookie'],

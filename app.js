@@ -24,6 +24,10 @@ const MILLISECONDS_IN_DAY = MILLISECONDS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cors({
+	origin: [
+		'http://localhost:5173',
+		'https://school-house-rock-frontend-b3up8.ondigitalocean.app/'
+	],
 	credentials: true,
 	exposedHeaders: ['set-cookie'],
 }));

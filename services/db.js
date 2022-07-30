@@ -35,10 +35,7 @@ const orderByQueryDescending = "SELECT * FROM %I ORDER BY (VALUES(%L)) DESC LIMI
 const noOrderByQuery = "SELECT * FROM %I LIMIT %L OFFSET %L";
 async function getTable(tableName, limit, offset, orderBy, ascending) {
 	try {
-		console.log(orderBy != "");
-		console.log(!!orderBy);
 		if (orderBy != "" && (!!orderBy)) {
-			console.log("Ordering")
 			if (ascending)
 				return await connectionPool.query(format(orderByQueryAscending, tableName, orderBy, limit, offset));
 			else
@@ -47,7 +44,6 @@ async function getTable(tableName, limit, offset, orderBy, ascending) {
 			return await connectionPool.query(format(noOrderByQuery, tableName, limit, offset));
 		}
 	} catch (err) {
-		console.log(err);
 		return null;
 	}
 }

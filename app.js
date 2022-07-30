@@ -34,16 +34,21 @@ app.use(cors({
 }));
 app.use(logger('dev'));
 app.use(cookieParser());
-app.use(session({
+
+const sessionData = {
 	secret: process.env.SESSION_SECRET || 'test_secret',
 	resave: true,
 	saveUninitialized: true,
 	cookie: {
 		maxAge: MILLISECONDS_IN_DAY,
-		secure: true,
-		sameSite: "none",
 	},
-}));
+}
+if (app.get('env') === 'production') {
+	app.set('trust proxy', 1);
+	sessionData.cookie.secure = true;
+	sessionData.sameSite = "none";
+}
+app.use(session(sessionData));
 
 app.use('/authenticate', authenticateRouter);
 app.use('/logout', logoutRouter);

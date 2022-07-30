@@ -3,12 +3,12 @@ const router = express.Router();
 
 const db = require("../../services/db");
 
-router.get('/table', async function(req, res) {
+router.post('/table', async function(req, res) {
 	return res.send(await db.getTable(req.body.tableName, req.body.limit, req.body.offset,
 		req.body.orderBy, req.body.ascending));
 });
 
-router.get('/entrycount', async function(req, res) {
+router.post('/entrycount', async function(req, res) {
 	return res.send(await db.getEntryCount(req.body.tableName));
 });
 

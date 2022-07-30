@@ -4,6 +4,7 @@ const router = express.Router();
 const db = require("../../services/db");
 
 router.post('/table', async function(req, res) {
+	console.log(req.body);
 	return res.send(await db.getTable(req.body.tableName, req.body.limit, req.body.offset,
 		req.body.orderBy, req.body.ascending));
 });

@@ -30,8 +30,8 @@ async function signupUser(username, password) {
 	}
 }
 
-const orderByQueryAscending = "SELECT * FROM %I ORDER BY (VALUES(%L)) ASC LIMIT %L OFFSET %L";
-const orderByQueryDescending = "SELECT * FROM %I ORDER BY (VALUES(%L)) DESC LIMIT %L OFFSET %L";
+const orderByQueryAscending = "SELECT * FROM %I ORDER BY %I ASC LIMIT %L OFFSET %L";
+const orderByQueryDescending = "SELECT * FROM %I ORDER BY %I DESC LIMIT %L OFFSET %L";
 const noOrderByQuery = "SELECT * FROM %I LIMIT %L OFFSET %L";
 async function getTable(tableName, limit, offset, orderBy, ascending) {
 	try {
@@ -39,7 +39,7 @@ async function getTable(tableName, limit, offset, orderBy, ascending) {
 			if (ascending)
 				return await connectionPool.query(format(orderByQueryAscending, tableName, orderBy, limit, offset));
 			else
-			return await connectionPool.query(format(orderByQueryDescending, tableName, orderBy, limit, offset));
+				return await connectionPool.query(format(orderByQueryDescending, tableName, orderBy, limit, offset));
 		} else {
 			return await connectionPool.query(format(noOrderByQuery, tableName, limit, offset));
 		}

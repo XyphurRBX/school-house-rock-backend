@@ -141,13 +141,15 @@ async function modifyRow(tableName, rowIdentifiers, newValues) {
 	}
 }
 
-async function getRows(value) {
+const getRowsPartialQuery = "SELECT * FROM %I "
+async function getRows(tableName, searchValue) {
 	try {
-		const getStudents = "SELECT * FROM STUDENT WHERE student_fname = " + value;
-		return await connectionPool.query(getStudents);
+		const getRowsQuery = format(getRowsPartialQuery, tableName) + generateSQLEqualityCheckFromObject(rowIdentifiers);
+		return await connectionPool.query(getRowsQuery);
+
 	} catch (err) {
 		return null;
 	}
 }
 
-module.exports = { getUserPassword, signupUser, getTable, getEntryCount, deleteRow, createRow, modifyRow };
+module.exports = { getUserPassword, signupUser, getTable, getEntryCount, deleteRow, createRow, modifyRow, getRows };

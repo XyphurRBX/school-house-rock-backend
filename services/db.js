@@ -141,4 +141,13 @@ async function modifyRow(tableName, rowIdentifiers, newValues) {
 	}
 }
 
+async function getRows(value) {
+	try {
+		const getStudents = "SELECT * FROM STUDENT WHERE student_fname = " + value;
+		return await connectionPool.query(getStudents);
+	} catch (err) {
+		return null;
+	}
+}
+
 module.exports = { getUserPassword, signupUser, getTable, getEntryCount, deleteRow, createRow, modifyRow };

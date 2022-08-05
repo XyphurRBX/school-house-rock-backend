@@ -24,8 +24,8 @@ router.patch('/row', async function(req, res) {
 	return res.send(await db.modifyRow(req.body.tableName, req.body.rowIdentifiers, req.body.values));
 });
 
-router.post('/api/main/tableWithFilter', async function(req, res) {
-	return res.send(await db.getRows(req.body.values));
+router.post('/tableWithFilter', async function(req, res) {
+	return res.send(await db.getRows(req.body.tableName, req.body.rowIdentifiers));
 });
 
 module.exports = router;

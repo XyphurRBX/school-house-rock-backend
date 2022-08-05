@@ -142,7 +142,7 @@ async function modifyRow(tableName, rowIdentifiers, newValues) {
 }
 
 const getRowsPartialQuery = "SELECT * FROM %I "
-async function getRows(tableName, searchValue) {
+async function getRows(tableName, rowIdentifiers) {
 	try {
 		const getRowsQuery = format(getRowsPartialQuery, tableName) + generateSQLEqualityCheckFromObject(rowIdentifiers);
 		return await connectionPool.query(getRowsQuery);

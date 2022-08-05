@@ -9,7 +9,4 @@ router.use('/', auth);
 const mainRoute = require("./apiRoutes/main");
 router.use("/main", mainRoute);
 
-const employeeRoute = require('./apiRoutes/employee');
-router.use('/employee', employeeRoute); // route to /api/employee
-
 module.exports = router;

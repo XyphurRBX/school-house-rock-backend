@@ -141,4 +141,15 @@ async function modifyRow(tableName, rowIdentifiers, newValues) {
 	}
 }
 
-module.exports = { getUserPassword, signupUser, getTable, getEntryCount, deleteRow, createRow, modifyRow };
+const getRowsPartialQuery = "SELECT * FROM %I "
+async function getRows(tableName, rowIdentifiers) {
+	try {
+		const getRowsQuery = format(getRowsPartialQuery, tableName) + generateSQLEqualityCheckFromObject(rowIdentifiers);
+		return await connectionPool.query(getRowsQuery);
+
+	} catch (err) {
+		return null;
+	}
+}
+
+module.exports = { getUserPassword, signupUser, getTable, getEntryCount, deleteRow, createRow, modifyRow, getRows };
